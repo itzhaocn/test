@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+  <!-- 
+  		1、导入基于注解的xsd
+  			 xmlns:context="http://www.springframework.org/schema/context"
+  			 http://www.springframework.org/schema/context
+             http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        2、导入注解解析器
+        	<context:annotation-config></context:annotation-config>
+       	3、导入person和student
+   -->
+   <!-- 
+   		工作原理：
+   		   当spring容器启动的时候，
+   		    ApplicationContext context = new 
+   		         ClassPathXmlApplicationContext("cn/itcast/spring0401/di/
+   		                 annotation/applicationContext.xml");
+   		  spring容器会创建纳入spring容器管理的bean.分别为person和student; 
+   		  spring容器会解析配置文件，会解析到<context:annotation-config>
+   		     </context:annotation-config>，会在纳入spring的bean范围内查找属性上是否存在
+   		   @Resource(name="student")
+   		       * 如果存在：
+   		           * 继续解析@Resource有没有name属性
+   		               * 如果没有name属性
+   		                         就会在所属的属性上，把属性的名称解析出来。会让属性的名称和spring中的bean中的id
+   		                         进行匹配，如果匹配成功，则把spring容器中相应的对象赋值给该属性
+   		                                   如果匹配不成功，则按照类型进行匹配
+   		           *  @Resource有name属性
+   		                就会解析name属性的值，把这个值和spring容器中的bean的id进行匹配
+   		                   * 如果匹配成功，则把spring容器中的相应的对象赋值给该属性
+   		                   * 如果匹配不成功，则直接报错
+   		         
+   		       * 如果不存在：
+   		              不做任何事情
+   		              
+   		xml和注解的写法：
+   		    xml:书写比较麻烦，但是效率比较高
+   		    注解：书写比较简单，但是效率比较低
+   		注解的写法只适合引用
+    -->
+   <context:annotation-config></context:annotation-config>
+   <bean id="person" class="cn.itcast.spring0401.di.annotation.Person"></bean>
+   <bean id="s" class="cn.itcast.spring0401.di.annotation.Student"></bean>
+</beans>
